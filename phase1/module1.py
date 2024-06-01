@@ -17,8 +17,8 @@ def solve(image: imageType) -> 'DFA':
     left_wall = 0
     right_wall = length/2
 
-    for i in range(length):
-        for j in range(length):
+    for i in range(fixed_length):
+        for j in range(fixed_length):
             length = fixed_length
             ceil = 0
             floor = length / 2
@@ -29,26 +29,32 @@ def solve(image: imageType) -> 'DFA':
                     if left_wall <= j < right_wall:
                         matrix[i][j] += "0"
                         length = length / 2
-                        floor = length/2
-                        right_wall = length/2
+                        floor = floor/2
+                        right_wall = right_wall/2
 
                     else:
                         matrix[i][j] += "1"
                         length = length / 2
-                        left_wall = length/2
-                        right_wall = fixed_length
+                        left_wall = right_wall
+                        right_wall += right_wall/2
+                        floor = floor/2
 
                 else:
-                    if right_wall < j:
+                    if j < right_wall:
                         matrix[i][j] += "2"
                         length = length / 2
-                        right_wall = length/2
-                        ceil = length/2
+                        ceil = floor
+                        floor = floor + floor/2
+                        right_wall = right_wall/2
+
                     else:
                         matrix[i][j] += "3"
                         length = length / 2
-                        left_wall = length/2
-                        floor = length/2
+                        left_wall = right_wall
+                        ceil = floor
+                        right_wall += right_wall/2
+                        floor += floor/2
+
     return matrix
 
 
