@@ -2,7 +2,8 @@ import FA_class
 import utils
 
 imageType = list[list[int]]
-
+def remove_duplicate(x):
+  return dict.fromkeys(x)
 
 def get_zoomed_part(image: imageType, direction: int) -> imageType:
     n = len(image)
@@ -44,11 +45,13 @@ def solve(image: imageType) -> 'FA_class.DFA':
 
             # Check if I_w_k matches with any existing state's image
             found_matching_state = False
-            for q, u_q in states.items():
+            removed_states = remove_duplicate(list(states))
+            for q, u_q in removed_states.items():
                 if I_w_k == u_q:
                     states[len((states))] = I_w_k
                     if len(I_w_k) == 1 and I_w_k == [[1]]:
-                        automaton.add_final_state(automaton.get_state_by_id(q))
+                        final_state = automaton.get_state_by_id(q)
+                        automaton.add_final_state(final_state)
                     automaton.add_transition(state_i, automaton.get_state_by_id(q), str(k))
                     found_matching_state = True
                     break

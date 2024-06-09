@@ -77,7 +77,8 @@ class DFA:
         self.init_state = state
 
     def add_final_state(self, state: State) -> None:
-        self.final_states.append(state)
+        if state not in self.final_states:
+            self.final_states.append(state)
 
     def get_state_by_id(self, id) -> State | None:
         int_id = int(id)
