@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\term4\project\project-template\[virtual-env-name]"
+VIRTUAL_ENV="D:\term4\project\language-theory-project\[virtual-env-name]"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

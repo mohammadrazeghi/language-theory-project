@@ -1,7 +1,7 @@
 import unittest
 import os
 import module1
-from utils import utils
+import utils
 
 
 class TestModule1(unittest.TestCase):

@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=D:\term4\project\project-template\[virtual-env-name]
+set VIRTUAL_ENV=D:\term4\project\language-theory-project\[virtual-env-name]
 
 if not defined PROMPT set PROMPT=$P$G
 
