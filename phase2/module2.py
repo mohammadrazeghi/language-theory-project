@@ -1,11 +1,70 @@
-from phase0.FA_class import DFA
+from phase1.FA_class import DFA
 from utils import utils
 from utils.utils import imageType
+import math
 
+
+def bit_addressing(image):
+    fixed_length = len(image)
+    matrix = [['' for _ in range(fixed_length)] for _ in range(fixed_length)]
+    number_of_loops = int(math.log2(fixed_length))
+
+    for i in range(fixed_length):
+        for j in range(fixed_length):
+            bit_address = []
+            ceil, floor, left_wall, right_wall = 0, fixed_length, 0, fixed_length
+
+            for _ in range(number_of_loops):
+                mid_horizontal = (ceil + floor) // 2
+                mid_vertical = (left_wall + right_wall) // 2
+
+                if i < mid_horizontal:
+                    floor = mid_horizontal
+                    if j < mid_vertical:
+                        right_wall = mid_vertical
+                        bit_address.append('0')
+                    else:
+                        left_wall = mid_vertical
+                        bit_address.append('1')
+                else:
+                    ceil = mid_horizontal
+                    if j < mid_vertical:
+                        right_wall = mid_vertical
+                        bit_address.append('2')
+                    else:
+                        left_wall = mid_vertical
+                        bit_address.append('3')
+
+            matrix[i][j] = ''.join(bit_address)
+
+    return matrix
 
 def solve(json_str: str, image: imageType) -> bool:
     fa = DFA.deserialize_json(json_str)
-    ...
+    matrix = bit_addressing(image)
+    current_state = fa.init_state
+    count = 0
+    for i in range(len(image)):
+        for j in range(len(image)):
+            input_symbol = matrix[i][j]
+            for k in range (len(input_symbol)):
+                current_state = current_state.transitions[input_symbol[k]]
+            if fa.is_final(current_state):
+                matrix[i][j] = 1
+                if image[i][j] == matrix[i][j]:
+                    count += 1
+                current_state = fa.init_state
+            else:
+                matrix[i][j] = 0
+                if image[i][j] == matrix[i][j]:
+                    count += 1
+                current_state = fa.init_state
+    print(matrix)
+    if count == (len(matrix)**2):
+        return 1
+    return 0
+
+
 
 
 if __name__ == "__main__":
