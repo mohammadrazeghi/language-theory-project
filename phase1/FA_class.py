@@ -61,7 +61,10 @@ class DFA:
         for state in self.states:
             fa[f"q_{state.id}"] = {}
             for symbol in self.alphabet:
-                fa[f"q_{state.id}"][symbol] = f"q_{state.transitions[symbol].id}"
+                if symbol in state.transitions:
+                    fa[f"q_{state.id}"][symbol] = f"q_{state.transitions[symbol].id}"
+                else:
+                    fa[f"q_{state.id}"][symbol] = None
 
         return json.dumps(fa)
 
@@ -72,7 +75,8 @@ class DFA:
 
     def add_transition(self, from_state: State, to_state: State, input_symbol: str) -> None:
         from_state.add_transition(input_symbol, to_state)
-
+        if input_symbol not in self.alphabet:
+            self.alphabet.append(input_symbol)
     def assign_initial_state(self, state: State) -> None:
         self.init_state = state
 
