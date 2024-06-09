@@ -47,6 +47,8 @@ def solve(image: imageType) -> 'FA_class.DFA':
             for q, u_q in states.items():
                 if I_w_k == u_q:
                     states[len((states))] = I_w_k
+                    if len(I_w_k) == 1 and I_w_k == [[1]]:
+                        automaton.add_final_state(automaton.get_state_by_id(q))
                     automaton.add_transition(state_i, automaton.get_state_by_id(q), str(k))
                     found_matching_state = True
                     break
@@ -56,6 +58,8 @@ def solve(image: imageType) -> 'FA_class.DFA':
                 j += 1
                 new_state = automaton.add_state(j)
                 states[len((states))] = I_w_k
+                if len(I_w_k) == 1 and I_w_k == [[1]]:
+                    automaton.add_final_state(new_state)
                 automaton.add_transition(state_i, new_state, str(k))
 
         # Step 4: Check if all states have been processed
