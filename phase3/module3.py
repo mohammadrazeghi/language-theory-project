@@ -14,7 +14,7 @@ def solve(json_fa_list: list[str], images: list[imageType]) -> list[int]:
                 image_list[img_index] = json_fa_list.index(json_text)
                 temp = module2.percentage
         temp = 0
-        return image_list
+    return image_list
 
 
 if __name__ == "__main__":
