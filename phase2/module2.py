@@ -4,6 +4,8 @@ from utils.utils import imageType
 import math
 
 
+percentage = 0
+
 def bit_addressing(image):
     fixed_length = len(image)
     matrix = [['' for _ in range(fixed_length)] for _ in range(fixed_length)]
@@ -59,7 +61,9 @@ def solve(json_str: str, image: imageType) -> bool:
                 if image[i][j] == matrix[i][j]:
                     count += 1
                 current_state = fa.init_state
-    print(matrix)
+    #print(matrix)
+    global percentage
+    percentage = (count / len(matrix)**2) * 100
     if count == (len(matrix)**2):
         return 1
     return 0

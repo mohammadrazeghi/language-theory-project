@@ -32,7 +32,7 @@ class TestModule1(unittest.TestCase):
                 state = fa.init_state
                 for char in address[0]:
                     state = state.transitions[char]
-
+#                ['303021130', '11111']
                 if fa.is_final(state):
                     self.assertEqual('1', address[1][img_ind], '1')
                 else:
